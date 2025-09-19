@@ -7,6 +7,7 @@ Plug('nvim-mini/mini.pick')
 Plug('neovim/nvim-lspconfig')
 Plug('mason-org/mason.nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['branch'] = 'master', ['do'] = ':TSUpdate' })
+Plug('saghen/blink.cmp', { ['tag'] = 'v1.7.0' })
 vim.call('plug#end')
 
 vim.o.number = true
@@ -27,30 +28,46 @@ vim.g.mapleader = ' '
 
 vim.lsp.enable({ 'clangd', 'lua_ls' })
 vim.lsp.config('lua_ls', {
-	settings = {
-		Lua = {
-			workspace = {
-				library = vim.api.nvim_get_runtime_file('', true),
-			}
-		}
-	}
+    settings = {
+        Lua = {
+            workspace = {
+                library = vim.api.nvim_get_runtime_file('', true),
+            }
+        }
+    }
+})
+vim.lsp.config('clangd', {
+    command = { 'clangd',
+        '--background-index',
+        '--header-insertion=never',
+        '--completion-style=detailed',
+        '--function-arg-placeholders',
+        '--fallback-style=llvm'
+    }
 })
 
 vim.cmd('colorscheme gruvbox')
 require('mini.pick').setup()
 require('mason').setup()
 require('nvim-treesitter.configs').setup {
-	ensure_installed = { 'c', 'cpp', 'lua', 'vim' },
-	highlight = { enable = true }
+    ensure_installed = { 'c', 'cpp', 'lua', 'vim' },
+    highlight = { enable = true }
 }
+require('blink.cmp').setup({
+    completion = {
+        documentation = { auto_show = true, auto_show_delay_ms = 200 },
+    },
+    keymap = { preset = 'super-tab', ['<C-y>'] = { "select_and_accept" } },
+})
+vim.api.nvim_set_hl(0, "SnippetTabstop", { bg = "NONE" })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-	callback = function(ev)
-		local client = vim.lsp.get_client_by_id(ev.data.client_id)
-		if client ~= nil and client:supports_method('testDocument/completion') then
-			vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
-		end
-	end,
+    callback = function(ev)
+        local client = vim.lsp.get_client_by_id(ev.data.client_id)
+        if client ~= nil and client:supports_method('testDocument/completion') then
+            vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+        end
+    end,
 })
 vim.cmd('set completeopt+=noselect')
 
@@ -83,4 +100,7 @@ vim.keymap.set('n', '<F7>', '<cmd>make<CR>')
 vim.keymap.set('n', '<F5>', '<cmd>make run<CR>')
 vim.keymap.set('n', '<S-Insert>', '"+p')
 vim.keymap.set('i', '<S-Insert>', '<C-r>+')
-
+vim.keymap.set('n', 'grd', vim.lsp.buf.declaration)
+vim.keymap.set('n', 'grr', vim.lsp.buf.rename)
+vim.keymap.set('n', 'grR', vim.lsp.buf.references)
+vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
