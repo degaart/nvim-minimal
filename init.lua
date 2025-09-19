@@ -104,3 +104,21 @@ vim.keymap.set('n', 'grd', vim.lsp.buf.declaration)
 vim.keymap.set('n', 'grr', vim.lsp.buf.rename)
 vim.keymap.set('n', 'grR', vim.lsp.buf.references)
 vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
+
+
+if vim.g.neovide then
+  vim.o.guifont = 'Cascadia Mono:h11'
+  vim.g.neovide_position_animation_length = 0.1
+  vim.g.neovide_scroll_animation_length = 0.1
+  vim.g.neovide_hide_mouse_when_typing = true
+  vim.g.neovide_theme = 'dark'
+  vim.g.neovide_remember_window_size = false
+  vim.g.neovide_input_ime = false
+  vim.g.neovide_cursor_animation_length = 0
+  vim.g.neovide_cursor_short_animation_length = 0
+  vim.g.neovide_cursor_trail_size = 0
+  vim.g.neovide_cursor_animate_in_insert_mode = false
+  vim.g.neovide_cursor_animate_command_line = false
+  vim.g.neovide_cursor_vfx_mode = ''
+end
+
