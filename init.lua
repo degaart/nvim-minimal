@@ -37,7 +37,7 @@ vim.lsp.config('lua_ls', {
     }
 })
 vim.lsp.config('clangd', {
-    command = { 'clangd',
+    cmd = { 'clangd',
         '--background-index',
         '--header-insertion=never',
         '--completion-style=detailed',
@@ -96,11 +96,12 @@ vim.keymap.set('n', '<leader>o', '<cmd>copen<CR>')
 vim.keymap.set('n', '<leader>c', '<cmd>cclose<CR>')
 vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev)
-vim.keymap.set('n', '<F7>', '<cmd>make<CR>')
-vim.keymap.set('n', '<F5>', '<cmd>make run<CR>')
+vim.keymap.set('n', '<F7>', ':update<CR> :make<CR>')
+vim.keymap.set('n', '<F5>', ':make run<CR>')
 vim.keymap.set('n', '<S-Insert>', '"+p')
 vim.keymap.set('i', '<S-Insert>', '<C-r>+')
 vim.keymap.set('n', 'grd', vim.lsp.buf.declaration)
+vim.keymap.set('n', 'grD', vim.lsp.buf.definition)
 vim.keymap.set('n', 'grr', vim.lsp.buf.rename)
 vim.keymap.set('n', 'grR', vim.lsp.buf.references)
 vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
