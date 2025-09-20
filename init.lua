@@ -120,5 +120,8 @@ if vim.g.neovide then
   vim.g.neovide_cursor_animate_in_insert_mode = false
   vim.g.neovide_cursor_animate_command_line = false
   vim.g.neovide_cursor_vfx_mode = ''
+  vim.keymap.set('n', '<leader>+', ':let g:neovide_scale_factor=g:neovide_scale_factor+0.1<CR>')
+  vim.keymap.set('n', '<leader>-', ':let g:neovide_scale_factor=g:neovide_scale_factor-0.1<CR>')
+  vim.keymap.set('n', '<leader>=', ':let g:neovide_scale_factor=1.0<CR>')
 end
 
