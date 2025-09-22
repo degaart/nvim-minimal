@@ -23,6 +23,7 @@ vim.o.signcolumn = "yes"
 vim.o.winborder = "rounded"
 vim.o.makeprg = 'cmake --build build'
 vim.o.fileformats = 'unix,dos,mac'
+vim.o.exrc = true
 
 vim.g.mapleader = ' '
 
@@ -69,7 +70,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
         end
     end,
 })
-vim.cmd('set completeopt+=noselect')
+vim.o.completeopt = 'noselect'
 
 -- vim.keymap.set('n', '<leader>r', ':update<CR> :source<CR>')
 -- vim.keymap.set('n', '<leader>w', ':wa<CR>')
