@@ -1,3 +1,6 @@
+vim.g.loaded_netrw       = 1
+vim.g.loaded_netrwPlugin = 1
+
 local vim = vim
 local Plug = vim.fn['plug#']
 
@@ -8,6 +11,7 @@ Plug('neovim/nvim-lspconfig')
 Plug('mason-org/mason.nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['branch'] = 'master', ['do'] = ':TSUpdate' })
 Plug('saghen/blink.cmp', { ['tag'] = 'v1.7.0' })
+Plug('nvim-tree/nvim-tree.lua')
 vim.call('plug#end')
 
 vim.o.number = true
@@ -72,6 +76,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 vim.o.completeopt = 'noselect'
 
+require("nvim-tree").setup()
+
 -- vim.keymap.set('n', '<leader>r', ':update<CR> :source<CR>')
 -- vim.keymap.set('n', '<leader>w', ':wa<CR>')
 -- vim.keymap.set('n', '<leader>q', ':q<CR>')
@@ -79,9 +85,9 @@ vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>mf', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>mb', ':Pick buffers<CR>')
 vim.keymap.set('n', '<leader>ff', vim.lsp.buf.format)
-vim.keymap.set({ 'n', 'v', 'x' }, '<leader>x', '"+d<CR>')
-vim.keymap.set({ 'n', 'v', 'x' }, '<leader>c', '"+y<CR>')
-vim.keymap.set({ 'n', 'v', 'x' }, '<leader>v', '"+p<CR>')
+vim.keymap.set({ 'n', 'v', 'x' }, '<leader>x', '"+d')
+vim.keymap.set({ 'n', 'v', 'x' }, '<leader>c', '"+y')
+vim.keymap.set({ 'n', 'v', 'x' }, '<leader>v', '"+p')
 vim.keymap.set('n', 'K', vim.lsp.buf.hover)
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
@@ -106,6 +112,7 @@ vim.keymap.set('n', 'grD', vim.lsp.buf.definition)
 vim.keymap.set('n', 'grr', vim.lsp.buf.rename)
 vim.keymap.set('n', 'grR', vim.lsp.buf.references)
 vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
+vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>')
 
 
 if vim.g.neovide then
