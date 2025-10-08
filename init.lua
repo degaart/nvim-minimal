@@ -28,6 +28,8 @@ vim.o.winborder = "rounded"
 vim.o.makeprg = 'cmake --build build'
 vim.o.fileformats = 'unix,dos,mac'
 vim.o.exrc = true
+vim.o.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 vim.g.mapleader = ' '
 
