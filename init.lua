@@ -113,6 +113,7 @@ vim.keymap.set('n', 'grr', vim.lsp.buf.rename)
 vim.keymap.set('n', 'grR', vim.lsp.buf.references)
 vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
 vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>')
+vim.keymap.set('t', '<C-space>', "<C-\\><C-n>",{silent = true})
 
 
 if vim.g.neovide then
