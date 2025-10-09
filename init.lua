@@ -12,6 +12,7 @@ Plug('mason-org/mason.nvim')
 Plug('nvim-treesitter/nvim-treesitter', { ['branch'] = 'master', ['do'] = ':TSUpdate' })
 Plug('saghen/blink.cmp', { ['tag'] = 'v1.7.0' })
 Plug('nvim-tree/nvim-tree.lua')
+Plug('folke/which-key.nvim')
 vim.call('plug#end')
 
 vim.o.number = true
