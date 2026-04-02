@@ -15,7 +15,7 @@ Plug('nvim-tree/nvim-tree.lua')
 Plug('folke/which-key.nvim')
 vim.call('plug#end')
 
-vim.o.number = true
+vim.o.relativenumber = true
 vim.o.wrap = false
 vim.o.swapfile = false
 vim.o.tabstop = 4
@@ -34,7 +34,7 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 vim.g.mapleader = ' '
 
-vim.lsp.enable({ 'clangd', 'lua_ls' })
+vim.lsp.enable({ 'clangd', 'lua_ls', 'rust_analyzer' })
 vim.lsp.config('lua_ls', {
     settings = {
         Lua = {
@@ -115,6 +115,8 @@ vim.keymap.set('n', 'grD', vim.lsp.buf.definition)
 vim.keymap.set('n', 'grr', vim.lsp.buf.rename)
 vim.keymap.set('n', 'grR', vim.lsp.buf.references)
 vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
+vim.keymap.set('n', 'gre', vim.lsp.buf.references)
+vim.keymap.set('n', 'grs', '<cmd>LspClangdSwitchSourceHeader<CR>')
 vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>')
 vim.keymap.set('t', '<C-space>', "<C-\\><C-n>",{silent = true})
 
