@@ -31,6 +31,7 @@ vim.o.fileformats = 'unix,dos,mac'
 vim.o.exrc = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.colorcolumn = '80'
 
 vim.g.mapleader = ' '
 
@@ -79,7 +80,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 vim.o.completeopt = 'noselect'
 
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+    view = {
+        -- width = 40,
+        adaptive_size = true,
+    }
+})
 
 -- vim.keymap.set('n', '<leader>r', ':update<CR> :source<CR>')
 -- vim.keymap.set('n', '<leader>w', ':wa<CR>')
