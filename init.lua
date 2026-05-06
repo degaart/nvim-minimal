@@ -15,7 +15,6 @@ Plug('nvim-tree/nvim-tree.lua')
 Plug('folke/which-key.nvim')
 vim.call('plug#end')
 
--- vim.o.number = true
 vim.o.relativenumber = true;
 vim.o.wrap = false
 vim.o.swapfile = false
@@ -32,10 +31,11 @@ vim.o.fileformats = 'unix,dos,mac'
 vim.o.exrc = true
 vim.o.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.colorcolumn = '80'
 
 vim.g.mapleader = ' '
 
-vim.lsp.enable({ 'clangd', 'lua_ls' })
+vim.lsp.enable({ 'clangd', 'lua_ls', 'rust_analyzer' })
 vim.lsp.config('lua_ls', {
     settings = {
         Lua = {
@@ -80,7 +80,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 vim.o.completeopt = 'noselect'
 
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+    view = {
+        -- width = 40,
+        adaptive_size = true,
+    }
+})
 
 -- vim.keymap.set('n', '<leader>r', ':update<CR> :source<CR>')
 -- vim.keymap.set('n', '<leader>w', ':wa<CR>')
@@ -116,6 +121,8 @@ vim.keymap.set('n', 'grD', vim.lsp.buf.definition)
 vim.keymap.set('n', 'grr', vim.lsp.buf.rename)
 vim.keymap.set('n', 'grR', vim.lsp.buf.references)
 vim.keymap.set('n', 'gra', vim.lsp.buf.code_action)
+vim.keymap.set('n', 'gre', vim.lsp.buf.references)
+vim.keymap.set('n', 'grs', '<cmd>LspClangdSwitchSourceHeader<CR>')
 vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>')
 vim.keymap.set('t', '<C-space>', "<C-\\><C-n>",{silent = true})
 
