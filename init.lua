@@ -6,6 +6,7 @@ local Plug = vim.fn['plug#']
 
 vim.call('plug#begin')
 Plug('morhetz/gruvbox')
+Plug('felipefdl/warm-burnout', { ['rtp'] = 'vim' })
 Plug('nvim-mini/mini.pick')
 Plug('neovim/nvim-lspconfig')
 Plug('mason-org/mason.nvim')
@@ -55,7 +56,7 @@ vim.lsp.config('clangd', {
     }
 })
 
-vim.cmd('colorscheme gruvbox')
+vim.cmd.colorscheme 'warm-burnout-dark'
 require('mini.pick').setup()
 require('mason').setup()
 require('nvim-treesitter.configs').setup {
@@ -82,14 +83,10 @@ vim.o.completeopt = 'noselect'
 
 require("nvim-tree").setup({
     view = {
-        -- width = 40,
         adaptive_size = true,
     }
 })
 
--- vim.keymap.set('n', '<leader>r', ':update<CR> :source<CR>')
--- vim.keymap.set('n', '<leader>w', ':wa<CR>')
--- vim.keymap.set('n', '<leader>q', ':q<CR>')
 vim.keymap.set('n', '<leader>f', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>mf', ':Pick files<CR>')
 vim.keymap.set('n', '<leader>mb', ':Pick buffers<CR>')
