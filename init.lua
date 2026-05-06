@@ -15,7 +15,8 @@ Plug('nvim-tree/nvim-tree.lua')
 Plug('folke/which-key.nvim')
 vim.call('plug#end')
 
-vim.o.number = true
+-- vim.o.number = true
+vim.o.relativenumber = true;
 vim.o.wrap = false
 vim.o.swapfile = false
 vim.o.tabstop = 4
