@@ -27,7 +27,7 @@ vim.o.smartindent = true
 vim.o.termguicolors = true
 vim.o.signcolumn = "yes"
 vim.o.winborder = "rounded"
-vim.o.makeprg = 'cmake --build build'
+vim.o.makeprg = 'make -s'
 vim.o.fileformats = 'unix,dos,mac'
 vim.o.exrc = true
 vim.o.list = true
@@ -36,7 +36,19 @@ vim.opt.colorcolumn = '80'
 
 vim.g.mapleader = ' '
 
+local local_config = vim.fn.stdpath('config') .. '/local.lua'
+local no_lsp_roots = vim.fn.filereadable(local_config) == 1
+  and (dofile(local_config).no_lsp_roots or {})
+  or {}
+local cwd = vim.fn.getcwd()
+local disable_lsp = vim.iter(no_lsp_roots):any(function(root)
+  return cwd == root or vim.startswith(cwd, root .. "/")
+end)
+
+if not disable_lsp then
 vim.lsp.enable({ 'clangd', 'lua_ls', 'rust_analyzer' })
+end
+
 vim.lsp.config('lua_ls', {
     settings = {
         Lua = {
@@ -63,6 +75,22 @@ require('nvim-treesitter.configs').setup {
     ensure_installed = { 'c', 'cpp', 'lua', 'vim' },
     highlight = { enable = true }
 }
+
+-- nvim-treesitter master passes a single node to this directive, while
+-- Neovim 0.12 passes a list of captured nodes.
+if vim.fn.has('nvim-0.12') == 1 then
+  require('nvim-treesitter.query_predicates')
+  vim.treesitter.query.add_directive('set-lang-from-info-string!', function(match, _, source, pred, metadata)
+    local nodes = match[pred[2]]
+    local node = nodes and nodes[1]
+    if not node then return end
+
+    local alias = vim.treesitter.get_node_text(node, source):lower()
+    local aliases = { ex = 'elixir', pl = 'perl', sh = 'bash', uxn = 'uxntal', ts = 'typescript' }
+    metadata['injection.language'] = vim.filetype.match({ filename = 'a.' .. alias })
+      or aliases[alias] or alias
+  end, { force = true })
+end
 require('blink.cmp').setup({
     completion = {
         documentation = { auto_show = true, auto_show_delay_ms = 200 },
@@ -109,6 +137,7 @@ vim.keymap.set('n', '<leader>o', '<cmd>copen<CR>')
 vim.keymap.set('n', '<leader>c', '<cmd>cclose<CR>')
 vim.keymap.set('n', '<leader>dn', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<leader>dp', vim.diagnostic.goto_prev)
+vim.keymap.set('n', '<leader>t', '<cmd>NvimTreeToggle<CR>')
 vim.keymap.set('n', '<F7>', ':update<CR>:make<CR>')
 vim.keymap.set('n', '<F5>', ':make run<CR>')
 vim.keymap.set('n', '<S-Insert>', '"+p')
